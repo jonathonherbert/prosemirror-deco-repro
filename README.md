@@ -1,5 +1,3 @@
-# ProseMirror basic example
-
 A reproduction of an issue where decorations passed to nested EditorViews throw an error. A DecorationGroup is being nested inside another DecorationGroup's members, which should be of type `DecorationSet[]`.
 
 ## Reproducing
