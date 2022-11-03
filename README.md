@@ -1,6 +1,8 @@
 # ProseMirror basic example
 
-A reproduction of an issue where decorations passed to nested EditorViews produce a crash.
+A reproduction of an issue where decorations passed to nested EditorViews throw an error. A DecorationGroup is being nested inside another DecorationGroup's members, which should be of type `DecorationSet[]`.
+
+## Reproducing
 
 Run `yarn` to install dependencies, and `yarn dev` to run.
 
@@ -20,4 +22,6 @@ index.js:3956 Uncaught TypeError: this.members[i].localsInner is not a function
     at NodeViewDesc.create (index.js:1171:30)
 ```
 
-This seems to be caused by the combination of decorations fed to the nested editor from its parent, and decorations created by the nested editor's plugins (in this case, a placeholder.)
+This state seems to be caused by the combination of decorations fed to the nested editor from its parent, and decorations created by the nested editor's plugins (in this case, a placeholder decoration.)
+
+Adding content to the nested-example node in index.html removes the placeholder and the error is no longer thrown.

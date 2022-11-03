@@ -9,9 +9,8 @@ import {
   space,
   paragraph,
 } from "@guardian/prosemirror-invisibles";
+import { applyDevTools } from "prosemirror-dev-tools";
 
-// Mix the nodes from prosemirror-schema-list into the basic schema to
-// create a schema with list support.
 const mySchema = new Schema({
   nodes: schema.spec.nodes.append({
     example: {
@@ -49,12 +48,8 @@ export const createPlaceholderPlugin = (text) =>
           return DecorationSet.empty;
         }
 
-        // If the document contains inline content only, just place the widget at its start.
-        const pos = state.doc.inlineContent
-          ? 0
-          : getFirstPlaceholderPosition(state.doc);
         return DecorationSet.create(state.doc, [
-          Decoration.widget(pos, getPlaceholder),
+          Decoration.widget(0, getPlaceholder),
         ]);
       },
     },
@@ -75,7 +70,7 @@ window.view = new EditorView(document.querySelector("#editor"), {
             return DecorationSet.create(state.doc, [
               Decoration.inline(0, state.doc.nodeSize - 2, {
                 class: "TestDecoration__inline",
-              })
+              }),
             ]);
           },
         },
@@ -94,14 +89,13 @@ window.view = new EditorView(document.querySelector("#editor"), {
                     plugins: [createPlaceholderPlugin("placeholder")]
                   }),
                   decorations: () => {
-                    const localOffset = -1;
                     const offsetMap = new Mapping([
-                      StepMap.offset(-fieldOffset + localOffset),
+                      StepMap.offset(-fieldOffset),
                     ]);
-                    const mappedDecos = innerDecos.map(offsetMap, node);
-                    return mappedDecos;
+                    return innerDecos.map(offsetMap, node);
                   },
                 });
+                dom.appendChild(innerViewDom);
               });
 
               return { dom };
@@ -113,3 +107,5 @@ window.view = new EditorView(document.querySelector("#editor"), {
   }),
 });
 
+window.process = {};
+applyDevTools(window.view);
