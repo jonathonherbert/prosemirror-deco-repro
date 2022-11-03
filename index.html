@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset=utf8>
+<link rel=stylesheet href="https://prosemirror.net/css/editor.css">
+<link rel="stylesheet" href="./node_modules/@guardian/prosemirror-invisibles/dist/style.css">
+<script src="https://prosemirror.net/examples/prosemirror.js"></script>
+
+<script type="module" src="index.js" defer></script>
+<style>
+  .TestDecoration__widget {
+    position: relative;
+  }
+
+  .TestDecoration__widget-inner {
+    position: absolute;
+    top: -10px;
+    font-size: 7px;
+  }
+
+  .TestDecoration__inline {
+    background-color: peachpuff;
+  }
+
+  nestedexample {
+    display:block;
+  }
+</style>
+
+<base href="http://prosemirror.net/">
+
+<div id=editor style="margin-bottom: 23px"></div>
+
+<div style="display: none" id="content">
+  <h3>Hello ProseMirror</h3>
+
+  <p>This is editable text. You can focus it and start typing.</p>
+
+  <example>
+    <nested-example>Example</nested-example>
+    <nested-example></nested-example>
+  </example>
+
+  <example>
+    <nested-example>Example 3</nested-example>
+  </example>
+
+  <p>
+    There's nothing wrong with it?
+  </p>
+</div>
